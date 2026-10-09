@@ -1,0 +1,27 @@
+[
+  {
+    "name": "main entry (brotli)",
+    "path": "dist/assets/index-*.js",
+    "limit": "90 kB"
+  },
+  {
+    "name": "react vendor (brotli)",
+    "path": "dist/assets/react-*.js",
+    "limit": "80 kB"
+  },
+  {
+    "name": "gsap vendor (brotli)",
+    "path": "dist/assets/gsap-*.js",
+    "limit": "56 kB"
+  },
+  {
+    "name": "WebGPU seasonal world (brotli)",
+    "path": "dist/assets/PearWorldCanvas-*.js",
+    "limit": "380 kB"
+  },
+  {
+    "name": "app CSS (brotli)",
+    "path": "dist/assets/index-*.css",
+    "limit": "14 kB"
+  }
+]

@@ -1,0 +1,27 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # Batch low-risk dev tooling bumps into a single PR.
+      dev-dependencies:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+    ignore:
+      # Majors that require upgrading the rest of the stack first — pin until then.
+      - dependency-name: '@vitejs/plugin-react'
+        versions: ['>=6'] # needs Vite 8 (project is on Vite 6)
+      - dependency-name: 'tailwindcss'
+        versions: ['>=4'] # v4 is a CSS-first rewrite; config is Tailwind 3 (.cjs)
+      - dependency-name: 'lint-staged'
+        versions: ['>=16'] # requires Node >=22 (project targets Node 20/21)
+
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly

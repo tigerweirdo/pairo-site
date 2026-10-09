@@ -1,0 +1,16 @@
+# pairo
+
+pairo is the private super-app for couples — a small, warm place made for two.
+plan together, remember the little things, and feel close even when life is loud.
+free during beta. iOS app coming soon.
+
+## links
+
+- home: https://getpairo.app/
+- privacy approach: https://getpairo.app/#privacy
+- FAQ: https://getpairo.app/#faq
+- beta access: https://getpairo.app/#beta
+
+## contact
+
+questions not covered in the FAQ? write to us via the site.

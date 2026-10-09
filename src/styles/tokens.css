@@ -1,0 +1,157 @@
+@layer base {
+  :root {
+    --bg-gradient: linear-gradient(
+      168deg,
+      hsl(var(--seasonal-bg-h, 130), calc(var(--seasonal-bg-s, 15) * 0.78 * 1%), 99.4%) 0%,
+      hsl(var(--seasonal-bg-h, 130), calc(var(--seasonal-bg-s, 15) * 1%), 98.7%) 42%,
+      hsl(var(--seasonal-bg-h, 130), calc(var(--seasonal-bg-s, 15) * 1.06 * 1%), 98.2%) 100%
+    );
+
+    --bg-accent-wash:
+      radial-gradient(135% 92% at 17% 10%, var(--seasonal-gradient-start) 0%, transparent 58%),
+      radial-gradient(108% 88% at 87% 16%, var(--seasonal-gradient-mid) 0%, transparent 62%),
+      radial-gradient(118% 78% at 43% 93%, var(--seasonal-gradient-end) 0%, transparent 54%);
+
+    --background: 0 0% 99%;
+    --foreground: 210 15% 7%;
+    --card: 0 0% 100% / 0.62;
+    --card-foreground: 210 15% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 15% 7%;
+
+    --primary: var(--seasonal-primary, 135 45% 50%);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--seasonal-secondary, 140 35% 65%);
+    --secondary-foreground: 210 15% 7%;
+    --accent: var(--seasonal-accent, 130 50% 55%);
+    --accent-foreground: 210 15% 7%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 15% 45%;
+
+    --destructive: 4 78% 58%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 100% / 0.2;
+    --input: 210 20% 92%;
+    --ring: var(--seasonal-accent, 130 50% 55%);
+
+    --radius-container: 20px;
+    --radius-control: 14px;
+    --radius-chip: 9999px;
+    --radius: 1.45rem;
+    --btn-radius: 19px;
+
+    --glass-bg: 0 0% 100% / 0.58;
+    --glass-border: 0 0% 100% / 0.55;
+    --glass-shadow:
+      0 1px 0 hsl(0 0% 100% / 0.65), 0 10px 40px hsl(var(--shadow-color) / 0.06),
+      0 2px 14px hsl(var(--shadow-color) / 0.04), 0 1px 3px hsl(var(--seasonal-primary) / 0.04);
+
+    --btn-shadow: var(--seasonal-btn-shadow, 0 6px 16px hsla(135, 45%, 50%, 0.3));
+    --btn-duration: 220ms;
+    --btn-easing: cubic-bezier(0.22, 1, 0.36, 1);
+    --btn-motion: all var(--btn-duration) var(--btn-easing);
+
+    --seasonal-primary: 135 45% 50%;
+    --seasonal-secondary: 140 35% 65%;
+    --seasonal-accent: 130 50% 55%;
+    --seasonal-bg-h: 130;
+    --seasonal-bg-s: 15;
+
+    --seasonal-gradient-start: hsla(130, 32%, 94%, 0.14);
+    --seasonal-gradient-mid: hsla(135, 26%, 91%, 0.1);
+    --seasonal-gradient-end: hsla(140, 20%, 88%, 0.08);
+
+    --seasonal-color-lightest: #dff5e1;
+    --seasonal-color-light: #c5ebc9;
+    --seasonal-color-main: #52b060;
+    --seasonal-color-text: #2a7534;
+    --seasonal-color-dark: #3d9449;
+    --seasonal-color-darker: #2a7534;
+    --seasonal-color-darkest: #1d5426;
+
+    --seasonal-avatar-gradient: linear-gradient(
+      127deg,
+      var(--seasonal-color-lightest) 0%,
+      var(--seasonal-color-light) 24%,
+      var(--seasonal-color-main) 52%,
+      var(--seasonal-color-dark) 76%,
+      var(--seasonal-color-darker) 100%
+    );
+    --seasonal-brand-gradient: linear-gradient(
+      to bottom,
+      hsl(var(--seasonal-primary) / 0.92),
+      hsl(var(--seasonal-primary))
+    );
+    --gradient-text: linear-gradient(
+      127deg,
+      var(--seasonal-color-lightest) 0%,
+      var(--seasonal-color-light) 24%,
+      var(--seasonal-color-main) 52%,
+      var(--seasonal-color-dark) 78%,
+      var(--seasonal-color-darker) 100%
+    );
+    --selection-color: hsl(var(--seasonal-primary) / 0.3);
+    --seasonal-card-wash: hsl(130, 6%, 97.5%);
+    --color-transition: 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --text-primary: var(--foreground);
+    --text-secondary: var(--muted-foreground);
+    --text-tertiary: 215 12% 60%;
+    --text-disabled: 215 10% 72%;
+    --text-inverse: 0 0% 100%;
+
+    --icon-primary: var(--foreground);
+    --icon-secondary: var(--muted-foreground);
+    --icon-tertiary: 215 12% 60%;
+    --icon-active: var(--seasonal-primary, var(--primary));
+
+    --success: 152 69% 41%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 100%;
+
+    --shadow-color: 220 15% 20%;
+    --shadow-nav: 0 -4px 20px hsl(var(--shadow-color) / 0.05);
+    --shadow-card:
+      0 4px 22px hsl(var(--shadow-color) / 0.05), 0 1px 3px hsl(var(--shadow-color) / 0.04),
+      0 2px 10px hsl(var(--seasonal-primary) / 0.045);
+    --shadow-card-hover:
+      0 18px 48px hsl(var(--shadow-color) / 0.08), 0 4px 14px hsl(var(--shadow-color) / 0.05),
+      0 6px 18px hsl(var(--seasonal-primary) / 0.06);
+
+    --seasonal-down-glow:
+      0 10px 26px -12px hsl(var(--seasonal-primary) / 0.1),
+      0 22px 48px -18px hsl(var(--seasonal-primary) / 0.07),
+      0 38px 70px -24px hsl(var(--seasonal-primary) / 0.045);
+    --seasonal-down-glow-sm:
+      0 4px 14px -6px hsl(var(--seasonal-primary) / 0.07),
+      0 12px 28px -12px hsl(var(--seasonal-primary) / 0.05),
+      0 22px 44px -16px hsl(var(--seasonal-primary) / 0.03);
+  }
+}
+
+:root {
+  transition:
+    --primary var(--color-transition),
+    --secondary var(--color-transition),
+    --accent var(--color-transition),
+    --ring var(--color-transition),
+    --seasonal-primary var(--color-transition),
+    --gradient-text var(--color-transition),
+    --bg-gradient var(--color-transition);
+}
+
+.seasonal-text {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+::selection {
+  background: var(--selection-color, hsla(135, 45%, 50%, 0.3));
+}

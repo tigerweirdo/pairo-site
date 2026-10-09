@@ -1,0 +1,374 @@
+@import './tokens.css';
+@import '../icons/pear-icons.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 92px;
+    color-scheme: light;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--seasonal-primary) / 0.32) transparent;
+  }
+
+  html::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background: hsl(var(--seasonal-primary) / 0.26);
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background-clip: padding-box;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--seasonal-primary) / 0.38);
+    background-clip: padding-box;
+  }
+
+  ::selection {
+    background: var(--selection-color, hsl(var(--seasonal-primary) / 0.3));
+    color: inherit;
+  }
+
+  ::-moz-selection {
+    background: var(--selection-color, hsl(var(--seasonal-primary) / 0.3));
+    color: inherit;
+  }
+
+  /* CSS text-transform breaks Turkish İ/ı — never apply to user names or i18n copy */
+  .preserve-case {
+    text-transform: none;
+  }
+
+  /*
+   * Quicksand + text-transform:uppercase synthesizes a faux “A” (lowercase a scaled).
+   * Section labels: write REAL CAPS in copy and use preserve-case / section-eyebrow.
+   */
+  .section-eyebrow {
+    margin-bottom: 1.5rem;
+    font-family: 'Quicksand', ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: none;
+    color: var(--seasonal-color-main);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    position: relative;
+    font-family:
+      'Quicksand',
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      'Segoe UI',
+      sans-serif;
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--bg-gradient);
+    color: hsl(var(--foreground));
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+  }
+}
+
+/* Features: sticky tab rail + sticky phone (desktop) */
+@media (min-width: 1024px) {
+  #features [role='tablist'] {
+    scrollbar-width: none;
+  }
+
+  #features [role='tablist']::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.glass-card {
+  background: color-mix(in srgb, var(--seasonal-card-wash) 46%, hsl(var(--glass-bg)));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid hsl(var(--glass-border) / 0.16);
+  box-shadow: var(--glass-shadow);
+  border-radius: 1rem;
+}
+
+/* Primary CTA — tek geçişlik highlight (premium, abartısız) */
+.btn-primary-surface {
+  background: var(--seasonal-brand-gradient);
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  background: linear-gradient(105deg, transparent 38%, hsl(0 0% 100% / 0.28) 50%, transparent 62%);
+  transform: translateX(-130%);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.btn-shine:hover::after,
+.btn-shine:focus-visible::after {
+  transform: translateX(130%);
+}
+
+.btn-shine > * {
+  position: relative;
+  z-index: 1;
+}
+
+.seasonal-down-glow {
+  box-shadow: var(--seasonal-down-glow);
+}
+
+.seasonal-down-glow-sm {
+  box-shadow: var(--seasonal-down-glow-sm);
+}
+
+@layer components {
+  .link-warm {
+    border-radius: 0.125rem;
+    transition:
+      color var(--btn-duration) var(--btn-easing),
+      opacity var(--btn-duration) var(--btn-easing),
+      transform var(--btn-duration) var(--btn-easing),
+      background-color var(--btn-duration) var(--btn-easing);
+  }
+
+  .link-warm:hover {
+    color: hsl(var(--seasonal-primary));
+  }
+
+  .link-warm:active {
+    transform: scale(0.98);
+  }
+
+  .interactive-mark {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 0;
+    line-height: 1;
+    border-radius: 0.5rem;
+    transition: transform var(--btn-duration) var(--btn-easing);
+  }
+
+  .interactive-mark--cluster {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.35rem 0.5rem;
+    margin: -0.35rem -0.5rem;
+  }
+
+  .interactive-mark--cluster:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--seasonal-primary) / 0.45);
+  }
+
+  .interactive-mark--pulse {
+    transform: scale(1.08);
+  }
+
+  .interactive-mark:hover {
+    transform: scale(1.03);
+  }
+
+  .interactive-mark:active {
+    transform: scale(0.97);
+  }
+}
+
+@keyframes footer-season-flourish {
+  0%,
+  100% {
+    filter: none;
+  }
+  45% {
+    filter: drop-shadow(0 0 10px hsl(var(--seasonal-primary) / 0.55));
+  }
+}
+
+.footer-season-pulse-once {
+  animation: footer-season-flourish 1.1s var(--btn-easing) 1;
+}
+
+.pear-confetti-root {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow: hidden;
+}
+
+.pear-confetti-bit {
+  position: absolute;
+  top: 18%;
+  width: 7px;
+  height: 10px;
+  border-radius: 2px 2px 4px 4px;
+  background: hsl(var(--seasonal-primary));
+  opacity: 0.9;
+  animation: pear-confetti-fall 1s var(--btn-easing) forwards;
+}
+
+@keyframes pear-confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(72vh) rotate(240deg);
+    opacity: 0;
+  }
+}
+
+.pear-easter-toast {
+  pointer-events: none;
+  position: fixed;
+  left: 50%;
+  bottom: 1.75rem;
+  z-index: 201;
+  translate: -50% 0;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid hsl(var(--seasonal-primary) / 0.18);
+  background: hsl(var(--background) / 0.92);
+  backdrop-filter: blur(10px);
+  font-family: 'Quicksand', ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--seasonal-color-main);
+  box-shadow: 0 8px 28px hsl(var(--seasonal-primary) / 0.12);
+  animation: pear-easter-toast-in 0.45s var(--btn-easing);
+}
+
+@keyframes pear-easter-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/** Gradient accent line — same Quicksand as headings (no Montserrat split). */
+.text-brand-gradient {
+  font-family: 'Quicksand', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  background: var(--seasonal-brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes cta-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.025);
+  }
+}
+
+.cta-breathe {
+  animation: cta-breathe 2s ease-in-out infinite;
+}
+
+/* Marquee bands (hero ticker + footer strip) — transform-only, duplicated track for a seamless loop */
+@keyframes pear-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.pear-marquee {
+  overflow: hidden;
+}
+
+.pear-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: pear-marquee var(--marquee-duration, 26s) linear infinite;
+}
+
+/* Footer strip — outline-only wordmark */
+.pear-strip-text {
+  -webkit-text-stroke: 2px hsl(var(--seasonal-primary) / 0.4);
+  color: transparent;
+}
+
+/* Hero — first viewport fit, phones not clipped */
+.hero-section {
+  overflow: visible;
+}
+
+.hero-phone-stage {
+  overflow: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-hero-glow-drift,
+  .animate-spark-dot-float,
+  .cta-breathe {
+    animation: none !important;
+  }
+
+  .btn-shine::after {
+    display: none;
+  }
+
+  .footer-season-pulse-once,
+  .pear-confetti-bit,
+  .pear-easter-toast,
+  .pear-marquee-track {
+    animation: none !important;
+  }
+
+  .interactive-mark:hover,
+  .interactive-mark:active,
+  .link-warm:active {
+    transform: none;
+  }
+}
+
+/* Summer palette: slightly deepen muted text for WCAG AA on cool-tinted backgrounds */
+:root[data-current-season='summer'] {
+  --muted-foreground: 215 18% 38%;
+}

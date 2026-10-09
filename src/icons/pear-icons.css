@@ -1,0 +1,30 @@
+/**
+ * pear Icon System — CSS Variables
+ *
+ * Runtime: `seasonColors.applySeasonalColors` → `--pear-icon-stroke`, `--pear-icon-primary`,
+ * `--pear-icon-secondary`, `--pear-icon-accent` (documentElement). Bu dosyadaki :root değerleri
+ * yalnızca ilk boyama / JS öncesi fallback’tır.
+ *
+ * İki renk hattı: kontur `--pear-icon-stroke`; dolgular runtime’da çoğunlukla secondary ile hizalanır.
+ */
+
+:root {
+  --pear-icon-stroke: #2a2420;
+  --pear-icon-secondary: #9aadbe;
+  --pear-icon-primary: var(--pear-icon-secondary);
+  --pear-icon-accent: var(--pear-icon-secondary);
+}
+
+/* Icon base styles */
+.pear-icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Smooth color transitions when theme updates */
+.pear-icon * {
+  transition:
+    fill 0.6s ease,
+    stroke 0.6s ease;
+}

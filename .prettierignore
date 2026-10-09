@@ -1,0 +1,6 @@
+dist
+node_modules
+prerender
+public
+package-lock.json
+*.snapshot.html
