@@ -67,7 +67,8 @@ export const STORY_COPY = {
     note: 'free during beta · no card · delete anytime',
     shareNote: 'share the idea now · no sign-up required',
     privacyTitle: 'one private pair_id.',
-    privacyBody: 'no friend graph, no feed, no data sold. what you write is for your person.',
+    privacyBody:
+      'no friend graph, no feed, no data sold. what you write is for your person. this marketing site uses PostHog EU (cookieless, no personal profiles).',
     faqEyebrow: 'THE HONEST QUESTIONS',
     nextSteps: ['send this page', 'open pairo together', 'pair once — the space is yours'],
   },
@@ -156,7 +157,7 @@ export const LANDING_COPY = {
   },
   privacySection: {
     title: "what's between you stays between you.",
-    body: "one private pair_id links your accounts — and nothing else. no ads, no data sold, no feed. when you write here, it's for your person.",
+    body: "one private pair_id links your accounts — and nothing else. no ads, no data sold, no feed. when you write here, it's for your person. on getpairo.app we use PostHog (EU-hosted, cookieless analytics) to see how people use this site — no ad profiles, no cookies, no personal tracking; data stays in the EU.",
     linkLabel: 'read the full privacy approach →',
   },
   betaSection: {

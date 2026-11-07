@@ -10,6 +10,11 @@
     "limit": "80 kB"
   },
   {
+    "name": "posthog analytics (brotli)",
+    "path": "dist/assets/analytics-*.js",
+    "limit": "105 kB"
+  },
+  {
     "name": "gsap vendor (brotli)",
     "path": "dist/assets/gsap-*.js",
     "limit": "56 kB"

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { getScrollPercent, subscribeScroll } from '@/lib/scroll';
-import { trackEvent } from '@/lib/analytics';
+import { track } from '@/lib/analytics';
 
 const MILESTONES = [25, 50, 75, 100];
 const SET_PIECE_ID = 'seasonal';
@@ -16,7 +16,7 @@ export function useScrollDepthAnalytics() {
       for (const milestone of MILESTONES) {
         if (pct >= milestone && !fired.current.has(milestone)) {
           fired.current.add(milestone);
-          trackEvent('Scroll Depth', { depth: String(milestone) });
+          track('scroll_depth', { depth: String(milestone) });
         }
       }
     };
@@ -47,7 +47,7 @@ export function useScrollDepthAnalytics() {
           if (!entry?.isIntersecting || entry.intersectionRatio < 0.35) return;
           if (fired.current.has(SET_PIECE_KEY)) return;
           fired.current.add(SET_PIECE_KEY);
-          trackEvent('Set Piece Reached');
+          track('set_piece_reached');
           observer?.disconnect();
         },
         { threshold: [0, 0.35] },

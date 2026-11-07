@@ -1,5 +1,5 @@
 import { useScrollTo } from '@/lib/scroll';
-import { trackEvent } from '@/lib/analytics';
+import { track } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 const FOCUS_RING_CLASS =
@@ -13,9 +13,10 @@ export function NavAnchor({ href, className, children, onNavigate, analytics, ..
     <a
       href={href}
       className={cn(FOCUS_RING_CLASS, className)}
+      data-pear-tracked={analytics ? '1' : undefined}
       onClick={(event) => {
         if (analytics) {
-          trackEvent('CTA Click', analytics);
+          track('primary_cta_click', analytics);
         }
         scrollTo(href, event);
         onNavigate?.();
