@@ -300,6 +300,9 @@ export default defineConfig({
             ) {
               return 'react';
             }
+            if (/\/node_modules\/posthog-js\//.test(id)) {
+              return 'analytics';
+            }
             if (/\/node_modules\/(gsap|@gsap\/react)\//.test(id)) {
               return 'gsap';
             }

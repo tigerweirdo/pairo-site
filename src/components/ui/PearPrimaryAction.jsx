@@ -3,7 +3,7 @@ import { NavAnchor } from '@/components/layout/NavAnchor';
 import { APP_URL } from '@/components/layout/navLinks';
 import { CheckIcon, ShareIcon } from '@/icons/PearIcons';
 import { ArrowRightIcon } from '@/icons/UiIcons';
-import { trackEvent } from '@/lib/analytics';
+import { track } from '@/lib/analytics';
 import { buttonClassName } from '@/components/ui/Button';
 import { DEFAULT_SITE_URL } from '@/constants/site';
 
@@ -73,14 +73,18 @@ export function PearPrimaryAction({
       try {
         await navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: DEFAULT_SITE_URL });
         setState('shared');
-        trackEvent('Share Pear', { location, method: 'native' });
+        track('primary_cta_click', { cta: 'share_pear', location, method: 'native' });
         onAction?.();
       } catch (error) {
         if (error?.name === 'AbortError') return;
         try {
           await copyShareText();
           setState('copied');
-          trackEvent('Share Pear', { location, method: 'clipboard_after_share_error' });
+          track('primary_cta_click', {
+            cta: 'share_pear',
+            location,
+            method: 'clipboard_after_share_error',
+          });
           onAction?.();
         } catch {
           setState('error');
@@ -90,7 +94,7 @@ export function PearPrimaryAction({
       try {
         await copyShareText();
         setState('copied');
-        trackEvent('Share Pear', { location, method: 'clipboard' });
+        track('primary_cta_click', { cta: 'share_pear', location, method: 'clipboard' });
         onAction?.();
       } catch {
         setState('error');

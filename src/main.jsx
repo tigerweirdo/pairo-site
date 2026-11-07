@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from '@/app/App';
-import { initPlausible } from '@/lib/analytics';
+import { initPostHog } from '@/lib/analytics';
 import { initWebVitals } from '@/lib/webVitals';
 import { initScrollEngine } from '@/lib/scroll';
 import { initScrollPerfProbe } from '@/lib/scrollPerfProbe';
@@ -15,7 +15,7 @@ function mountApp() {
   syncBrandTheme(new Date(), { instant: true });
   initScrollEngine();
   initScrollPerfProbe();
-  initPlausible();
+  initPostHog();
   initWebVitals();
 
   if (import.meta.env.PROD) {

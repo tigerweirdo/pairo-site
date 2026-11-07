@@ -25,16 +25,16 @@ Single-page React site: one long cinematic scroll story, a draggable year scrubb
 
 ## Stack
 
-| Area      | Choice                                                    |
-| --------- | --------------------------------------------------------- |
-| UI        | React 19                                                  |
-| Build     | Vite 6                                                    |
-| Styling   | Tailwind CSS 3 + design tokens in `src/styles/`           |
-| Animation | GSAP 3 + `@gsap/react`                                    |
-| 3D (lazy) | React Three Fiber + Three.js (WebGPU with WebGL fallback) |
-| SEO shell | Puppeteer snapshot → `prerender/root.snapshot.html` (build output) |
-| Analytics | Optional Plausible (production domain only; see `src/lib/analytics.js`) |
-| Deploy    | Example headers in `vercel.json` (SPA rewrite + CSP)      |
+| Area      | Choice                                                               |
+| --------- | -------------------------------------------------------------------- |
+| UI        | React 19                                                             |
+| Build     | Vite 6                                                               |
+| Styling   | Tailwind CSS 3 + design tokens in `src/styles/`                      |
+| Animation | GSAP 3 + `@gsap/react`                                               |
+| 3D (lazy) | React Three Fiber + Three.js (WebGPU with WebGL fallback)            |
+| SEO shell | Puppeteer snapshot → `prerender/root.snapshot.html` (build output)   |
+| Analytics | PostHog EU (production only, cookieless; see `src/lib/analytics.js`) |
+| Deploy    | Example headers in `vercel.json` (SPA rewrite + CSP)                 |
 
 ## Quality tooling
 

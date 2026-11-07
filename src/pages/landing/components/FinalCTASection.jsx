@@ -10,7 +10,7 @@ import { LANDING_COPY } from '@/pages/landing/landing.content';
 import { PEAR_DURATION_ENTRANCE, PEAR_OFFSET_Y, PEAR_STAGGER } from '@/constants/motion';
 import { ensureGsapRegistered, gsap, EASE, prefersReducedMotion } from '@/lib/gsap';
 import { scrollRevealConfig } from '@/lib/scroll';
-import { trackEvent } from '@/lib/analytics';
+import { track } from '@/lib/analytics';
 import { ArrowRightIcon } from '@/icons/UiIcons';
 
 ensureGsapRegistered();
@@ -103,7 +103,7 @@ export function FinalCTASection() {
               className="rounded-sm text-[var(--seasonal-color-text)] underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--seasonal-primary)/0.5)] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               onClick={(event) => {
                 event.preventDefault();
-                trackEvent('CTA Click', { cta: 'ios_notify', location: 'final' });
+                track('primary_cta_click', { cta: 'ios_notify', location: 'final' });
               }}
             >
               {ctaSecondary}
