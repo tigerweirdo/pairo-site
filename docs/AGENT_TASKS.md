@@ -24,3 +24,18 @@
 ### Form olayları
 
 Sitede form yok; `form_start` / `form_success` eklenmedi.
+
+## 2026-11-07 — PostHog hostname + çift $pageview düzeltmesi
+
+### Sorun
+
+- CI / Lighthouse / Puppeteer prerender (`localhost`, `navigator.webdriver`) prod build ile PostHog’a fallback key ile event gönderiyordu.
+- İlk yüklemede `loaded` callback ile `App.jsx` `useEffect` aynı `$pageview`’ı ~30–60 ms arayla iki kez gönderiyordu.
+
+### Yapılanlar
+
+- `POSTHOG_TRACKING_HOSTNAMES`: yalnızca `getpairo.app` ve `www.getpairo.app`.
+- `canTrack()` → `shouldEnablePostHogTracking()`: PROD + allowlist hostname + `!navigator.webdriver`.
+- `shouldDedupePageview` / `PAGEVIEW_DEDUPE_MS` (250 ms): aynı URL için ardışık `$pageview` birleştirme.
+- `App.jsx` içindeki gereksiz `capturePageview` kaldırıldı (ilk sayfa: `initPostHog` `loaded`; rota: `hashchange` / `popstate`).
+- `npm test` (`node --test`) + `src/lib/analytics.test.js`; CI `quality` job’a eklendi.

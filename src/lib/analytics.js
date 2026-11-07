@@ -3,20 +3,57 @@ import posthog from 'posthog-js';
 const POSTHOG_FALLBACK_KEY = 'phc_DfzHtLvcj3uawsACtsrgcFVyXVZYkW9FRpq3f2rYfMK5';
 const POSTHOG_API_HOST = 'https://eu.i.posthog.com';
 
+/** PostHog yalnızca bu hostname'lerde etkinleştirilir (CI/Lighthouse/localhost hariç). */
+export const POSTHOG_TRACKING_HOSTNAMES = Object.freeze(['getpairo.app', 'www.getpairo.app']);
+
+/** Aynı URL için ardışık $pageview yakalamalarını birleştirir (ms). */
+export const PAGEVIEW_DEDUPE_MS = 250;
+
 const APP_STORE_PATTERN =
   /^(https?:\/\/)?(apps\.apple\.com|itunes\.apple\.com|play\.google\.com)\//i;
 
 let initStarted = false;
 let posthogReady = false;
+let lastPageviewHref = '';
+let lastPageviewAt = 0;
 
-/** Prod-only, browser-only, skips Puppeteer prerender snapshots. */
+export function isPostHogTrackingHostname(hostname) {
+  return POSTHOG_TRACKING_HOSTNAMES.includes(String(hostname ?? '').trim());
+}
+
+/**
+ * @param {Pick<ImportMetaEnv, 'PROD'>} [env]
+ * @param {{ location?: { hostname?: string } } | null | undefined} [win]
+ * @param {{ webdriver?: boolean } | null | undefined} [nav]
+ * @param {unknown} [doc]
+ */
+export function shouldEnablePostHogTracking(
+  env = import.meta.env,
+  win = typeof window !== 'undefined' ? window : undefined,
+  nav = typeof navigator !== 'undefined' ? navigator : undefined,
+  doc = typeof document !== 'undefined' ? document : undefined,
+) {
+  if (!doc) return false;
+  if (!env?.PROD) return false;
+  if (nav?.webdriver) return false;
+  const hostname = win?.location?.hostname;
+  if (!hostname) return false;
+  return isPostHogTrackingHostname(hostname);
+}
+
+/** @param {string} href @param {number} nowMs */
+export function shouldDedupePageview(
+  href,
+  nowMs,
+  previousHref = lastPageviewHref,
+  previousAt = lastPageviewAt,
+) {
+  return href === previousHref && nowMs - previousAt < PAGEVIEW_DEDUPE_MS;
+}
+
+/** Prod-only, allowlisted host, skips Puppeteer / Lighthouse (webdriver). */
 export function canTrack() {
-  return (
-    typeof window !== 'undefined' &&
-    typeof document !== 'undefined' &&
-    import.meta.env.PROD &&
-    !navigator.webdriver
-  );
+  return shouldEnablePostHogTracking();
 }
 
 function resolvePostHogKey() {
@@ -27,8 +64,16 @@ function resolvePostHogKey() {
 /** Manual $pageview — autocapture is off; hash and history changes included. */
 export function capturePageview() {
   if (!canTrack() || !posthogReady) return;
+
+  const href = window.location.href;
+  const now = Date.now();
+  if (shouldDedupePageview(href, now)) return;
+
+  lastPageviewHref = href;
+  lastPageviewAt = now;
+
   posthog.capture('$pageview', {
-    $current_url: window.location.href,
+    $current_url: href,
   });
 }
 
@@ -123,4 +168,12 @@ export function track(event, props = {}) {
 /** @deprecated Prefer `track` — kept for existing call sites during migration. */
 export function trackEvent(name, props = {}) {
   track(name, props);
+}
+
+/** @internal Test-only reset for module state. */
+export function __resetAnalyticsStateForTests() {
+  initStarted = false;
+  posthogReady = false;
+  lastPageviewHref = '';
+  lastPageviewAt = 0;
 }
